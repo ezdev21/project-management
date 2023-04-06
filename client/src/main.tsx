@@ -15,7 +15,7 @@ import FourOhFour from './pages/FourOhFour';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App/>}>
-      <Route path="about/:id" element={<About/>} />
+      <Route path="/about" element={<About/>} />
       <Route path="*" element={<FourOhFour/>} />
     </Route>
   )

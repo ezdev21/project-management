@@ -1,10 +1,11 @@
-import { useParams } from "react-router-dom";
+import { Button,DatePicker } from 'antd'
 
 const About = () => {
-    const {id} = useParams();
     return ( 
         <div>
-            <h1>About-{id}</h1>
+            <h1>About</h1>
+            <Button type="primary">Click Me</Button>
+            <DatePicker placeholder="select date" />
         </div>
      );
 }
