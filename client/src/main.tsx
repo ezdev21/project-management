@@ -11,10 +11,13 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import FourOhFour from './pages/FourOhFour';
+import Login from './pages/Login';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App/>}>
+      <Route path="/login" element={<Login/>} />
+      <Route path="/signup" element={<About/>} />
       <Route path="/about" element={<About/>} />
       <Route path="*" element={<FourOhFour/>} />
     </Route>
