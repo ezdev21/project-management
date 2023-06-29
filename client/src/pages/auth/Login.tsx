@@ -9,7 +9,7 @@ const Login = () => {
     const [password,setPassword] = useState('')
     const submit = (e:FormEvent)=>{
       e.preventDefault() 
-      axios.post('/login')
+      axios.post('/auth/login')
            .then(res=>{
              
            })
@@ -18,7 +18,7 @@ const Login = () => {
            })
     }
     return ( 
-      <div className="flex items-center justify-center py-6 px-4 sm:px-6 lg:px-8">
+      <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full bg-white p-5 rounded-xl">
         <div>
         <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
@@ -26,7 +26,7 @@ const Login = () => {
         </h2>
         <p className="mt-2 text-center text-sm leading-5 text-gray-600 max-w">
           Don't Have an Account?
-          <a href="/signup" className="text-primary font-medium focus:outline-none focus:underline transition ease-in-out duration-150">
+          <a href="/auth/signup" className="text-primary font-medium focus:outline-none focus:underline transition ease-in-out duration-150">
             Sign up
           </a>
         </p>
@@ -35,10 +35,10 @@ const Login = () => {
         <input type="hidden" name="remember" value="true" />
         <div className="rounded-md shadow-sm">
           <div>
-            <Input prefix={<UserOutlined/>} onChange={(e)=>setEmail(e.target.value)} aria-label="Email address" name="email" type="email" required className="appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:shadow-outline-blue focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Email address" />
+            <Input type="email" prefix={<UserOutlined/>} onChange={(e)=>setEmail(e.target.value)} aria-label="Email address" name="email" required className="appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:shadow-outline-blue focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Email address" />
           </div>
           <div className="mt-2">
-            <Input.Password prefix={<LockFilled/>} onChange={(e)=>setPassword(e.target.value)} aria-label="Password" name="password" type="password" required className="appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:ring-primary focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Password" />
+            <Input.Password prefix={<LockOutlined/>} onChange={(e)=>setPassword(e.target.value)} aria-label="Password" name="password" type="password" required className="appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:ring-primary focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Password" />
           </div>
         </div>
         <div className="mt-6 flex items-center justify-between">
@@ -49,7 +49,7 @@ const Login = () => {
             </label>
           </div>
           <div className="text-sm leading-5">
-            <a href="/password-reset" className="font-medium focus:outline-none focus:underline transition ease-in-out duration-150">
+            <a href="/auth/forgot-password" className="font-medium focus:outline-none focus:underline transition ease-in-out duration-150">
               Forgot your password?
             </a>
           </div>

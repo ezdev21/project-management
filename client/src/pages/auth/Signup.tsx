@@ -17,7 +17,7 @@ const Signup = () => {
             </h2>
             <p className="mt-2 text-center text-sm leading-5 text-gray-600 max-w">
               Already Have an Account?
-              <a href='/login' className="text-primary font-medium focus:outline-none focus:underline transition ease-in-out duration-150">
+              <a href='/auth/login' className="text-primary font-medium focus:outline-none focus:underline transition ease-in-out duration-150">
                 Sign in
               </a>
             </p>
@@ -36,7 +36,7 @@ const Signup = () => {
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-email">
                   Email address
                 </label>
-                <input onChange={(e)=>setEmail(e.target.value)} className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" type="email" placeholder="example@example.com" name="email" required/>
+                <input type="email" onChange={(e)=>setEmail(e.target.value)} className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" placeholder="example@example.com" name="email" required/>
               </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-3">
@@ -60,7 +60,7 @@ const Signup = () => {
                     <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
                   </svg>
                 </span>
-                Register
+                Sign up
               </button>
             </div>
           </form>

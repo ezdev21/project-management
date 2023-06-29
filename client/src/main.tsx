@@ -13,12 +13,16 @@ import {
 import FourOhFour from './pages/FourOhFour';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
+import ForgotPassword from './pages/auth/ForgotPassword';
+import ResetPassword from './pages/auth/ResetPassword';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App/>}>
-      <Route path="/login" element={<Login/>} />
-      <Route path="/signup" element={<Signup/>} />
+      <Route path="/auth/login" element={<Login/>} />
+      <Route path="/auth/signup" element={<Signup/>} />
+      <Route path="/auth/forgot-password" element={<ForgotPassword/>}/>
+      <Route path="/auth/reset-password" element={<ResetPassword/>}/>
       <Route path="/about" element={<About/>} />
       <Route path="*" element={<FourOhFour/>} />
     </Route>
