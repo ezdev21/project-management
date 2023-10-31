@@ -12,7 +12,8 @@ export class UsersService {
   }
 
   findAll() {
-    return this.prisma.
+    return 'hello'
+    //return this.prisma.User.findMany()
   }
 
   findOne(email:string,password:string) {
@@ -20,7 +21,7 @@ export class UsersService {
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return 
+    //return 
   }
 
   remove(id: number) {
