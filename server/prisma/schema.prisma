@@ -11,8 +11,9 @@ datasource db {
 }
 
 model User{
-  id Int @id @map("_id") 
+  id String @id @map("_id") 
   name String
+  username String @unique
   email String @unique
   password String
   createdAt DateTime @default(now())
