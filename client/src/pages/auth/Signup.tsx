@@ -1,12 +1,31 @@
+import { useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
+import axios from '../../libs/axios'
 
 const Signup = () => {
+    const navigate = useNavigate();
     const [name,setName] = useState('')
+    const [username,setUserName] = useState('')
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
     const [passwordConfirmation,setPasswordConfirmation] = useState('')
     const signup = (e:FormEvent)=>{
       e.preventDefault()
+      const data = {
+        name,username,email,password
+      }
+      axios.post('/auth/signup',data)
+      .then(res=>{
+        if(res.status==201){
+          navigate("/auth/login");
+        }
+        else{
+          
+        }
+      })
+      .catch(err=>{
+        console.log(err)
+      }) 
     }
     return ( 
         <div className="h-full flex items-center justify-center py-6 px-4 sm:px-6 lg:px-8">
@@ -29,6 +48,14 @@ const Signup = () => {
                   Name
                 </label>
                 <input onChange={(e)=>setName(e.target.value)} className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" type="text" placeholder="Jane" name="name" required/>
+              </div>
+            </div>
+            <div className="flex flex-wrap -mx-3 my-3">
+              <div className="w-full px-3 mb-2 md:mb-0">
+                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-username">
+                  Username
+                </label>
+                <input onChange={(e)=>setUserName(e.target.value)} className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" type="text" placeholder="Jane123" name="username" required/>
               </div>
             </div>
             <div className="flex flex-wrap -mx-3 my-3">
