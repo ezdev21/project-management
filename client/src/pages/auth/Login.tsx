@@ -1,20 +1,25 @@
 import { FormEvent, useState } from "react";
-import axios from 'axios'
+import axios from '../../libs/axios'
 import { Input } from "antd";
 import { LockFilled, LockOutlined, UserOutlined } from '@ant-design/icons';
 import Password from "antd/es/input/Password";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
     const [email,setEmail]= useState('')
     const [password,setPassword] = useState('')
     const submit = (e:FormEvent)=>{
       e.preventDefault() 
       axios.post('/auth/login')
            .then(res=>{
-             
+            if(res.status==200){
+              localStorage.setItem('token',res.data.token)
+              navigate("/dashboard")
+            }
            })
            .catch(err=>{
-              
+            console.log(err)
            })
     }
     return ( 

@@ -15,10 +15,12 @@ import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import ResetPassword from './pages/auth/ResetPassword';
+import Dashboard from './pages/Dashboard';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App/>}>
+      <Route path="/dashboard" element={<Dashboard/>} />
       <Route path="/auth/login" element={<Login/>} />
       <Route path="/auth/signup" element={<Signup/>} />
       <Route path="/auth/forgot-password" element={<ForgotPassword/>}/>

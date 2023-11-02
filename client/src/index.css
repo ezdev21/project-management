@@ -6,3 +6,11 @@ body {
     color: #444;
     background: #d6d4d4;
 }
+
+input:focus{
+    border: 2px #5c77a2 solid !important;
+    box-sizing: border-box;
+}
+li:hover{
+    background: #d6d4d4;
+}

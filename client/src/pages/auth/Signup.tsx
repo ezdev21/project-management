@@ -20,7 +20,7 @@ const Signup = () => {
           navigate("/auth/login");
         }
         else{
-          
+
         }
       })
       .catch(err=>{

@@ -1,4 +1,5 @@
 import './index.css'
+import './assets/css/sidebar.css'
 import { NavLink, Outlet } from 'react-router-dom'
 
 function App() {
