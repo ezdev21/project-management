@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
-import axios from '../../libs/axios'
+import api from '../../libs/api'
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -14,7 +14,7 @@ const Signup = () => {
       const data = {
         name,username,email,password
       }
-      axios.post('/auth/signup',data)
+      api.post('/auth/signup',data)
       .then(res=>{
         if(res.status==201){
           navigate("/auth/login");

@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import axios from '../../libs/axios'
+import api from '../../libs/api'
 import { Input } from "antd";
 import { LockFilled, LockOutlined, UserOutlined } from '@ant-design/icons';
 import Password from "antd/es/input/Password";
@@ -11,7 +11,7 @@ const Login = () => {
     const [password,setPassword] = useState('')
     const submit = (e:FormEvent)=>{
       e.preventDefault() 
-      axios.post('/auth/login')
+      api.post('/auth/login')
            .then(res=>{
             if(res.status==200){
               localStorage.setItem('token',res.data.token)

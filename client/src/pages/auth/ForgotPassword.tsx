@@ -1,12 +1,12 @@
 import { Input } from "antd";
-import axios from "axios";
+import api from '../../libs/api'
 import { FormEvent, useState } from "react";
 
 const ForgotPassword = () => {
     const [email,setEmail] = useState('')
     const requestPassword = (e:FormEvent)=>{
         e.preventDefault() 
-        axios.post('/login')
+        api.post('/login')
              .then(res=>{
                
              })
