@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import About from './pages/About';
 import './index.css'
+import './utils/i18n/index'
 
 import {
   createBrowserRouter,
