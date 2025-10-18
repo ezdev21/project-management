@@ -1,13 +1,14 @@
 import { FormEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signUp } from '../../redux/slices/authSlice';
+import { AppDispatch } from "../../redux/store";
 
 const Signup = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordConfirmation] = useState("")
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
     const handleSubmit = (e:FormEvent)=>{
       e.preventDefault()
