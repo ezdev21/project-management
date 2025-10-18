@@ -1,22 +1,13 @@
-import { Input } from "antd";
-import api from '../../libs/api'
 import { FormEvent, useState } from "react";
 
 const ForgotPassword = () => {
     const [email,setEmail] = useState('')
     const requestPassword = (e:FormEvent)=>{
         e.preventDefault() 
-        api.post('/login')
-             .then(res=>{
-               
-             })
-             .catch(err=>{
-                
-             })
     }
     return ( 
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full">
+        <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full bg-white p-5 rounded-xl">
           <div>
             <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
               Send Password Reset Link
@@ -29,7 +20,7 @@ const ForgotPassword = () => {
           <form className="mt-8" onSubmit={requestPassword}>
             <div className="rounded-md shadow-sm">
               <div>
-                <Input type="email" onChange={(e)=>setEmail(e.target.value)} aria-label="Email address" name="email" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Email address" />
+                <input type="email" onChange={(e)=>setEmail(e.target.value)} aria-label="Email address" name="email" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Email address" />
               </div>
             </div>
     

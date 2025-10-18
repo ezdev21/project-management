@@ -1,7 +1,4 @@
 import { FormEvent, useState } from "react";
-import { Input } from "antd";
-import { LockFilled, LockOutlined, UserOutlined } from '@ant-design/icons';
-import Password from "antd/es/input/Password";
 import { useDispatch } from "react-redux";
 import { logIn } from '../../redux/slices/authSlice';
 
@@ -33,10 +30,10 @@ const Login = () => {
         <input type="hidden" name="remember" value="true" />
         <div className="rounded-md shadow-sm">
           <div>
-            <Input type="email" onChange={(e) =>setEmail(e.target.value)} prefix={<UserOutlined/>} aria-label="Email address" name="email" required className="appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:shadow-outline-blue focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Email address" />
+            <input type="email" onChange={(e) =>setEmail(e.target.value)} aria-label="Email address" name="email" required className="box-border w-full appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:shadow-outline-blue focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Email address" />
           </div>
           <div className="mt-2">
-            <Input.Password onChange={(e) =>setPassword(e.target.value)} prefix={<LockOutlined/>} aria-label="Password" name="password" type="password" required className="appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:ring-primary focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Password" />
+            <input type="password" onChange={(e) =>setPassword(e.target.value)} aria-label="Password" name="password" required className="box-border w-full appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:ring-primary focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Password" />
           </div>
         </div>
         <div className="mt-6 flex items-center justify-between">
@@ -47,7 +44,7 @@ const Login = () => {
             </label>
           </div>
           <div className="text-sm leading-5">
-            <a href="/auth/forgot-password" className="font-medium focus:outline-none focus:underline transition ease-in-out duration-150">
+            <a href="/auth/forgot-password" className="text-primary font-medium focus:outline-none focus:underline transition ease-in-out duration-150">
               Forgot your password?
             </a>
           </div>

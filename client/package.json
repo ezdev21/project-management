@@ -11,9 +11,7 @@
     "test:ui": "vitest --ui"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.0.1",
     "@reduxjs/toolkit": "^2.9.1",
-    "antd": "^5.4.0",
     "axios": "^1.4.0",
     "i18next": "^25.5.3",
     "react": "^18.2.0",
