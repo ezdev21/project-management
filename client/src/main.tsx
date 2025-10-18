@@ -19,10 +19,12 @@ import ForgotPassword from './pages/auth/ForgotPassword';
 import ResetPassword from './pages/auth/ResetPassword';
 import Dashboard from './pages/Dashboard';
 import { Provider } from 'react-redux';
+import Home from './pages/Home';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App/>}>
+      <Route index element={<Home/>} />
       <Route path="/dashboard" element={<Dashboard/>} />
       <Route path="/auth/login" element={<Login/>} />
       <Route path="/auth/signup" element={<Signup/>} />

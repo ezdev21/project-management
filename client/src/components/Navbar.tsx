@@ -1,9 +1,15 @@
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 function Navbar() {
   const { t } = useTranslation();
+  const name = useSelector((state:RootState) => state.auth.name);
 
+  const handleSubmit = (e:React.FormEvent)=>{
+      e.preventDefault()
+  }
   return (
     <div>
       <header>
@@ -35,8 +41,9 @@ function Navbar() {
         </ul>
         </div>
         <div className='flex items-center p-2 space-x-5'>
-          <NavLink to="/auth/login" className='border-2 border-white px-5 py-1 font-bold rounded-md box-border'>Log in</NavLink>
-          <NavLink to="/auth/signup" className='text-primary border-2 border-white bg-white px-5 py-1 font-bold rounded-md'>Sign up</NavLink>
+          <form onSubmit={(e) => handleSubmit(e)}>
+             <button>{name}</button>
+          </form>
         </div>
       </div>
          </nav>
