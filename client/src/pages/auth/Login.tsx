@@ -1,27 +1,20 @@
 import { FormEvent, useState } from "react";
-import api from '../../libs/api'
 import { Input } from "antd";
 import { LockFilled, LockOutlined, UserOutlined } from '@ant-design/icons';
 import Password from "antd/es/input/Password";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logIn } from '../../redux/slices/authSlice';
 
 const Login = () => {
-  const navigate = useNavigate();
-    const [email,setEmail]= useState('')
-    const [password,setPassword] = useState('')
-    const submit = (e:FormEvent)=>{
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
+
+    const handleSubmit = (e:FormEvent)=>{
       e.preventDefault() 
-      api.post('/auth/login')
-           .then(res=>{
-            if(res.status==200){
-              localStorage.setItem('token',res.data.token)
-              navigate("/dashboard")
-            }
-           })
-           .catch(err=>{
-            console.log(err)
-           })
+      dispatch(logIn({email:email,password:password}));
     }
+
     return ( 
       <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full bg-white p-5 rounded-xl">
@@ -36,14 +29,14 @@ const Login = () => {
           </a>
         </p>
       </div>
-      <form className="mt-8" onSubmit={submit}>
+      <form className="mt-8" onSubmit={(e) =>handleSubmit(e)}>
         <input type="hidden" name="remember" value="true" />
         <div className="rounded-md shadow-sm">
           <div>
-            <Input type="email" prefix={<UserOutlined/>} onChange={(e)=>setEmail(e.target.value)} aria-label="Email address" name="email" required className="appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:shadow-outline-blue focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Email address" />
+            <Input type="email" onChange={(e) =>setEmail(e.target.value)} prefix={<UserOutlined/>} aria-label="Email address" name="email" required className="appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:shadow-outline-blue focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Email address" />
           </div>
           <div className="mt-2">
-            <Input.Password prefix={<LockOutlined/>} onChange={(e)=>setPassword(e.target.value)} aria-label="Password" name="password" type="password" required className="appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:ring-primary focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Password" />
+            <Input.Password onChange={(e) =>setPassword(e.target.value)} prefix={<LockOutlined/>} aria-label="Password" name="password" type="password" required className="appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:ring-primary focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Password" />
           </div>
         </div>
         <div className="mt-6 flex items-center justify-between">

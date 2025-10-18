@@ -12,12 +12,14 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
+    "@reduxjs/toolkit": "^2.9.1",
     "antd": "^5.4.0",
     "axios": "^1.4.0",
     "i18next": "^25.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^16.0.0",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^6.9.0",
     "react-toastify": "^9.1.3"
   },

@@ -12,7 +12,7 @@ api.interceptors.request.use(
       if (config.headers) config.headers.token = accessToken
     }
     else{
-      window.location = '/login'
+      window.location = '/auth/login'
     }
     return config
   },
@@ -28,10 +28,10 @@ api.interceptors.response.use(
     },
     (error) => {
         if(error.response.status === 401) {
-        window.location = '/login'
+        window.location = '/auth/login'
         }
         return Promise.reject(error)
     }
 )
-  
+
 export default api

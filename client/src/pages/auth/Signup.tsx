@@ -1,32 +1,19 @@
-import { useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
-import api from '../../libs/api'
+import { useDispatch, useSelector } from "react-redux";
+import { signUp } from '../../redux/slices/authSlice';
 
 const Signup = () => {
-    const navigate = useNavigate();
-    const [name,setName] = useState('')
-    const [username,setUserName] = useState('')
-    const [email,setEmail] = useState('')
-    const [password,setPassword] = useState('')
-    const [passwordConfirmation,setPasswordConfirmation] = useState('')
-    const signup = (e:FormEvent)=>{
-      e.preventDefault()
-      const data = {
-        name,username,email,password
-      }
-      api.post('/auth/signup',data)
-      .then(res=>{
-        if(res.status==201){
-          navigate("/auth/login");
-        }
-        else{
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("");
+    const [passwordConfirmation, setPasswordConfirmation] = useState("")
+    const dispatch = useDispatch();
 
-        }
-      })
-      .catch(err=>{
-        console.log(err)
-      }) 
+    const handleSubmit = (e:FormEvent)=>{
+      e.preventDefault()
+      dispatch(signUp({name:name,email:email,password:password,passwordConfirmation: passwordConfirmation}));
     }
+
     return ( 
         <div className="h-full flex items-center justify-center py-6 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full bg-white p-5 rounded-xl">
@@ -41,21 +28,13 @@ const Signup = () => {
               </a>
             </p>
           </div>
-          <form className="mt-8" onSubmit={signup}>
+          <form className="mt-8" onSubmit={(e) =>handleSubmit(e)}>
             <div className="flex flex-wrap -mx-3 my-3">
               <div className="w-full px-3 mb-2 md:mb-0">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
                   Name
                 </label>
-                <input onChange={(e)=>setName(e.target.value)} className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" type="text" placeholder="Jane" name="name" required/>
-              </div>
-            </div>
-            <div className="flex flex-wrap -mx-3 my-3">
-              <div className="w-full px-3 mb-2 md:mb-0">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-username">
-                  Username
-                </label>
-                <input onChange={(e)=>setUserName(e.target.value)} className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" type="text" placeholder="Jane123" name="username" required/>
+                <input onChange={(e) =>setName(e.target.value)} className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" type="text" placeholder="Jane" name="name" required/>
               </div>
             </div>
             <div className="flex flex-wrap -mx-3 my-3">
@@ -63,7 +42,7 @@ const Signup = () => {
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-email">
                   Email address
                 </label>
-                <input type="email" onChange={(e)=>setEmail(e.target.value)} className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" placeholder="example@example.com" name="email" required/>
+                <input type="email" onChange={(e) =>setEmail(e.target.value)} className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" placeholder="example@example.com" name="email" required/>
               </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-3">
@@ -71,13 +50,13 @@ const Signup = () => {
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
                   Password
                 </label>
-                <input onChange={(e)=>setPassword(e.target.value)} className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" type="password" placeholder="******************" name="password" required/>
+                <input onChange={(e) =>setPassword(e.target.value)} className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" type="password" placeholder="******************" name="password" required/>
               </div>
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
                   Confirmation Password
                 </label>
-                <input onChange={(e)=>setPasswordConfirmation(e.target.value)} className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" id="grid-password" type="password" placeholder="******************" name="password_confirmation" required/>
+                <input onChange={(e) =>setPasswordConfirmation(e.target.value)}className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" id="grid-password" type="password" placeholder="******************" name="password_confirmation" required/>
               </div>
             </div>
             <div className="my-6">
