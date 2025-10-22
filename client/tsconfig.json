@@ -17,7 +17,7 @@
     "jsx": "react-jsx",
     "types": ["vitest/globals"],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
     }
   },
   "include": ["src"],
