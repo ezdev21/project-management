@@ -1,18 +1,40 @@
-import { FormEvent, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signUp } from '../../redux/slices/authSlice';
 import { AppDispatch } from "../../redux/store";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const signupSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().min(1, "Email is required").email("Invalid email address"),   
+  password: z.string().min(6, "Password must be at least 6 characters long"),
+  passwordConfirmation: z.string().min(6, "Password confirmation must be at least 6 characters long"),
+}).refine((data) => data.password === data.passwordConfirmation, {
+  message: "Passwords do not match",
+});
+
+type SignupFields = z.infer<typeof signupSchema>;
 
 const Signup = () => {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("");
-    const [passwordConfirmation, setPasswordConfirmation] = useState("")
-    const dispatch = useDispatch<AppDispatch>();
+    const { register, handleSubmit, setError, formState: {errors, isSubmitting} } = useForm<SignupFields>({
+      defaultValues: {
+        name: '',
+        email: '',
+        password: '',
+        passwordConfirmation: '',
+      },
+      resolver: zodResolver(signupSchema)
+    })
 
-    const handleSubmit = (e:FormEvent)=>{
-      e.preventDefault()
-      dispatch(signUp({name:name,email:email,password:password,passwordConfirmation: passwordConfirmation}));
+    const dispatch = useDispatch<AppDispatch>();
+    const onSubmit = async (data: SignupFields) => {
+      try {
+          await new Promise((resolve) => setTimeout(resolve, 5000));
+          dispatch(signUp({name:data.name,email:data.email,password:data.password,passwordConfirmation: data.passwordConfirmation})); 
+      } catch (error) {
+          setError("root", { type: "manual", message: "Invalid email or password" });
+      }
     }
 
     return ( 
@@ -29,13 +51,17 @@ const Signup = () => {
               </a>
             </p>
           </div>
-          <form className="mt-8" onSubmit={(e) =>handleSubmit(e)}>
+          <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
+            <div>
+              {errors.root && <span className="text-sm text-red-500">{errors.root.message}</span>}
+            </div>
             <div className="flex flex-wrap -mx-3 my-3">
               <div className="w-full px-3 mb-2 md:mb-0">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
                   Name
                 </label>
-                <input onChange={(e) =>setName(e.target.value)} className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" type="text" placeholder="Jane" name="name" required/>
+                <input {...register('name')} className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" type="text" placeholder="Jane" name="name" required/>
+                {errors.name && <span className="text-sm text-red-500">{errors.name.message}</span>}
               </div>
             </div>
             <div className="flex flex-wrap -mx-3 my-3">
@@ -43,31 +69,34 @@ const Signup = () => {
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-email">
                   Email address
                 </label>
-                <input type="email" onChange={(e) =>setEmail(e.target.value)} className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" placeholder="example@example.com" name="email" required/>
+                <input type="email" {...register('email')} className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" placeholder="example@example.com" name="email" required/>
+                {errors.email && <span className="text-sm text-red-500">{errors.email.message}</span>}
               </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-3">
-              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <div className="w-full px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
                   Password
                 </label>
-                <input onChange={(e) =>setPassword(e.target.value)} className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" type="password" placeholder="******************" name="password" required/>
+                <input {...register('password')} className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" type="password" placeholder="******************" required/>
+                {errors.password && <span className="text-sm text-red-500">{errors.password.message}</span>}
               </div>
-              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <div className="w-full px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
-                  Confirmation Password
+                  Password Confirmation
                 </label>
-                <input onChange={(e) =>setPasswordConfirmation(e.target.value)}className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" id="grid-password" type="password" placeholder="******************" name="password_confirmation" required/>
+                <input {...register('passwordConfirmation')} className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" type="password" placeholder="******************" required/>
+                {errors.passwordConfirmation && <span className="text-sm text-red-500">{errors.passwordConfirmation.message}</span>}
               </div>
             </div>
             <div className="my-6">
-              <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary focus:outline-none transition duration-150 ease-in-out">
+              <button disabled={isSubmitting} type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary focus:outline-none transition duration-150 ease-in-out">
                 <span className="absolute left-0 inset-y pl-3">
                   <svg className="h-5 w-5 transition ease-in-out duration-150" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                   </svg>
                 </span>
-                Sign up
+                {isSubmitting ? 'Signing up...' : 'Sign up' }
               </button>
             </div>
           </form>

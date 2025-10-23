@@ -1,19 +1,38 @@
-import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { logIn } from '../../redux/slices/authSlice';
 import { AppDispatch } from "../../redux/store";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const loginSchema = z.object({
+  email: z.string().min(1, "Email is required").email("Invalid email address"),
+  password: z.string(),
+});
+
+type LoginFields = z.infer<typeof loginSchema>;
 
 const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const { register, handleSubmit, setError, formState: {errors, isSubmitting} } = useForm<LoginFields>({
+      defaultValues: {
+        email: '',
+        password: ''
+      },
+      resolver: zodResolver(loginSchema)
+    })
+
     const dispatch = useDispatch<AppDispatch>();
 
-    const handleSubmit = (e:FormEvent)=>{
-      e.preventDefault() 
-      dispatch(logIn({email:email,password:password}));
+    const onSubmit: SubmitHandler<LoginFields> = async (data: LoginFields) => {
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+        dispatch(logIn({email:data.email,password:data.password})); 
+      } catch (error) {
+        setError("root", { type: "manual", message: "Invalid email or password" });
+      }
     }
 
-    return ( 
+    return (
       <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full bg-white p-5 rounded-xl">
         <div>
@@ -27,14 +46,18 @@ const Login = () => {
           </a>
         </p>
       </div>
-      <form className="mt-8" onSubmit={(e) =>handleSubmit(e)}>
-        <input type="hidden" name="remember" value="true" />
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
         <div className="rounded-md shadow-sm">
           <div>
-            <input type="email" onChange={(e) =>setEmail(e.target.value)} aria-label="Email address" name="email" required className="box-border w-full appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:shadow-outline-blue focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Email address" />
+            {errors.root && <span className="text-sm text-red-500">{errors.root.message}</span>}
+          </div>
+          <div>
+            <input {...register('email')} type="email" aria-label="Email address" name="email" required className="box-border w-full appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:shadow-outline-blue focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Email address" />
+            {errors.email && <span className="text-sm text-red-500">{errors.email.message}</span>}
           </div>
           <div className="mt-2">
-            <input type="password" onChange={(e) =>setPassword(e.target.value)} aria-label="Password" name="password" required className="box-border w-full appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:ring-primary focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Password" />
+            <input {...register('password')} type="password" aria-label="Password" name="password" required className="box-border w-full appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:ring-primary focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Password" />
+            {errors.password && <span className="text-sm text-red-500">{errors.password.message}</span>}
           </div>
         </div>
         <div className="mt-6 flex items-center justify-between">
@@ -51,13 +74,13 @@ const Login = () => {
           </div>
         </div>
         <div className="my-6">
-          <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary focus:outline-none focus:border-primary focus:shadow-outline-primary transition duration-150 ease-in-out">
+          <button disabled={isSubmitting} type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary focus:outline-none focus:border-primary focus:shadow-outline-primary transition duration-150 ease-in-out">
             <span className="absolute left-0 inset-y pl-3">
               <svg className="h-5 w-5 text-primary transition ease-in-out duration-150" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
               </svg>
             </span>
-            Sign in
+            {isSubmitting ? 'Signing in...' : 'Sign in'}
           </button>
         </div>
       </form>  
