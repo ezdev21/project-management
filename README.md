@@ -1,3 +1,3 @@
 <h2 align="center">
-  The ERP project
+  The Project Management project
 </h2>
