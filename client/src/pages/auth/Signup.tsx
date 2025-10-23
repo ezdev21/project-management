@@ -4,6 +4,7 @@ import { AppDispatch } from "../../redux/store";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "@/components/ui/input.js";
 
 const signupSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -60,7 +61,7 @@ const Signup = () => {
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
                   Name
                 </label>
-                <input {...register('name')} className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" type="text" placeholder="Jane" name="name" required/>
+                <Input {...register('name')}type="text" placeholder="John Doe" required/>
                 {errors.name && <span className="text-sm text-red-500">{errors.name.message}</span>}
               </div>
             </div>
@@ -69,7 +70,7 @@ const Signup = () => {
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-email">
                   Email address
                 </label>
-                <input type="email" {...register('email')} className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" placeholder="example@example.com" name="email" required/>
+                <Input type="email" {...register('email')} placeholder="example@example.com" required/>
                 {errors.email && <span className="text-sm text-red-500">{errors.email.message}</span>}
               </div>
             </div>
@@ -78,14 +79,14 @@ const Signup = () => {
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
                   Password
                 </label>
-                <input {...register('password')} className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" type="password" placeholder="******************" required/>
+                <Input {...register('password')} type="password" placeholder="******************" required/>
                 {errors.password && <span className="text-sm text-red-500">{errors.password.message}</span>}
               </div>
               <div className="w-full px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
                   Password Confirmation
                 </label>
-                <input {...register('passwordConfirmation')} className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10" type="password" placeholder="******************" required/>
+                <Input {...register('passwordConfirmation')} type="password" placeholder="******************" required/>
                 {errors.passwordConfirmation && <span className="text-sm text-red-500">{errors.passwordConfirmation.message}</span>}
               </div>
             </div>

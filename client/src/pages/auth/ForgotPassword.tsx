@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import { Input } from "../../components/ui/input";
 
 const ForgotPassword = () => {
     const [email,setEmail] = useState('')
@@ -20,7 +21,7 @@ const ForgotPassword = () => {
           <form className="mt-8" onSubmit={requestPassword}>
             <div className="rounded-md shadow-sm">
               <div>
-                <input type="email" onChange={(e)=>setEmail(e.target.value)} aria-label="Email address" name="email" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Email address" />
+                <Input type="email" onChange={(e)=>setEmail(e.target.value)} required placeholder="Email address" />
               </div>
             </div>
     

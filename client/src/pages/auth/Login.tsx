@@ -4,6 +4,7 @@ import { AppDispatch } from "../../redux/store";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "@/components/ui/input.js";
 
 const loginSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
@@ -51,12 +52,12 @@ const Login = () => {
           <div>
             {errors.root && <span className="text-sm text-red-500">{errors.root.message}</span>}
           </div>
-          <div>
-            <input {...register('email')} type="email" aria-label="Email address" name="email" required className="box-border w-full appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:shadow-outline-blue focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Email address" />
+          <div className="mb-5">
+            <Input {...register('email')} type="email" required placeholder="Email address" />
             {errors.email && <span className="text-sm text-red-500">{errors.email.message}</span>}
           </div>
-          <div className="mt-2">
-            <input {...register('password')} type="password" aria-label="Password" name="password" required className="box-border w-full appearance-none rounded-none relative px-3 py-3 border my-5 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:shadow-outline-blue focus:ring-primary focus:border-primary focus:z-10 sm:text-sm sm:leading-5" placeholder="Password" />
+          <div className="mt-5">
+            <Input {...register('password')} type="password"  required placeholder="Password" />
             {errors.password && <span className="text-sm text-red-500">{errors.password.message}</span>}
           </div>
         </div>
