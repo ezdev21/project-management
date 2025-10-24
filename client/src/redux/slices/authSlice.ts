@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import api from "../../libs/api";
+import api from "../../lib/api";
 import { useNavigate } from "react-router-dom";
 
 interface User {

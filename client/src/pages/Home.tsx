@@ -17,7 +17,7 @@ const Home = () => {
           </header>  
           <main>
             <div>
-              <h1 className="text-white text-5xl font-bold text-center mt-40">Welcome to Project Management System</h1>
+              <h1 className="text-white text-5xl font-bold text-center mt-40">Project Management System</h1>
             </div>
           </main>
         </div>
